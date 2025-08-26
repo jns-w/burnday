@@ -1,18 +1,17 @@
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useTheme } from "@/context/ThemeContext";
 import { COLORS, type Theme, TYPOGRAPHY } from "@/styles/Constants";
 
-export default function Index() {
+// noinspection JSUnusedGlobalSymbols
+export default function Home() {
   const { theme, toggleTheme } = useTheme();
 
   const styles = createThemedStyles(theme);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.introText}>
-        Edit app/index.tsx to edit this screen.
-      </Text>
+      <Text style={styles.introText}>app/index.tsx</Text>
       <Pressable onPress={() => toggleTheme()}>
         <Text style={styles.swapBtn}>
           {theme.name === "light" ? "go dark" : "go light"}

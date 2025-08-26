@@ -1,9 +1,11 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { Dimensions } from "react-native";
 
-export const { height, width } = Dimensions.get("window");
+export const { width } = Dimensions.get("window");
 const baseWidth = 375; // Base width for scaling
 
-export function hexToRGBA(hex, alpha) {
+export function hexToRGBA(hex: string, alpha: number) {
   const cleanHex = hex.replace("#", "");
   const r = parseInt(cleanHex.substring(0, 2), 16);
   const g = parseInt(cleanHex.substring(2, 4), 16);

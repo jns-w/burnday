@@ -22,13 +22,6 @@ export const THEME = {
       6: "#efd275",
       7: "#FF968E",
     },
-    colorful1: "#A06AF9",
-    colorful2: "#FBA3FF",
-    colorful3: "#8E96FF",
-    colorful4: "#94F0F0",
-    colorful5: "#8fd787",
-    colorful6: "#FFDD72",
-    colorful7: "#FF968E",
     colorfulGradient: {
       1: ["#A06AF9", "#FBA3FF"],
       2: ["#FBA3FF", "#ea8eff"],
@@ -54,15 +47,16 @@ export const THEME = {
     rest: "#F5F5F5",
     secondary: "#6200EE",
     text: "#FFF",
-    white: "#FFFFFF",
-    whiteMild: "#bebebe",
   },
   light: {
     bg1: "#eeeeee",
     bg2: "#dcdcdc",
+    border: "#e1e1e1",
+    deactive: "#838898",
     name: "light",
+    primary: "#1d52c0",
+    secondary: "#4500a9",
     text: "#131313",
-    white: "#FFFFFF",
   },
 };
 
@@ -125,6 +119,8 @@ export const COLORS = {
     200: "#956321",
     300: "#5B3D1E",
   },
+  white: "#FFFFFF",
+  whiteMild: "#BEBEBE",
 };
 
 export const TYPOGRAPHY = {
@@ -253,7 +249,6 @@ export const UTILS = {
   screenDefault: {
     alignItems: "center",
     backgroundColor: "transparent",
-    color: THEME.dark.white,
     flex: 1,
     paddingHorizontal: scale(20),
     paddingTop: scale(24),
