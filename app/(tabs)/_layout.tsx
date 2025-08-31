@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Clock, Dock } from "lucide-react-native";
+import { Clock, Settings } from "lucide-react-native";
 import { View } from "react-native";
 
 import { HapticTab } from "@/components/haptics/HapticTab";
@@ -25,17 +25,17 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            tabBarIcon: ({ color }) => <Dock color={color} />,
-            tabBarLabel: "Home",
-            title: "Home",
-          }}
-        />
-        <Tabs.Screen
-          name="timer/index"
-          options={{
             tabBarIcon: ({ color }) => <Clock color={color} />,
             tabBarLabel: "Timer",
             title: "Timer",
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            tabBarIcon: ({ color }) => <Settings color={color} />,
+            tabBarLabel: "Settings",
+            title: "Settings",
           }}
         />
       </Tabs>

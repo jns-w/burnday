@@ -70,12 +70,12 @@ export default function TabBar({
           >
             {options.tabBarIcon &&
               options.tabBarIcon({
-                color: isFocused ? theme.primary : theme.deactive,
+                color: isFocused ? theme.primary : theme.inactive,
                 size: 25,
               })}
             <Text
               style={{
-                color: isFocused ? theme.primary : theme.deactive,
+                color: isFocused ? theme.primary : theme.inactive,
                 fontSize: scale(10),
               }}
             >
