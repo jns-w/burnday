@@ -14,12 +14,13 @@ import {
 import React, { JSX, useEffect, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
-    Easing,
-    useAnimatedStyle,
-    useDerivedValue,
-    useSharedValue,
-    withDelay, withSpring,
-    withTiming,
+  Easing,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withDelay,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 import { THEME } from "@/styles/Constants";
@@ -73,6 +74,33 @@ function ProgressCircle({
       Skia.XYWHRect(
         center + radius - strokeWidth / 2,
         center,
+        strokeWidth,
+        strokeWidth * 1.05,
+      ),
+    );
+    // remove tip shape from rectangle using a circle
+    const circleClip = Skia.Path.Make();
+    const tipRadius = strokeWidth / 2;
+    circleClip.addCircle(center + radius, center, tipRadius);
+    p.op(circleClip, PathOp.Difference);
+
+    return p;
+  }, [center, radius, strokeWidth]);
+
+  const backTipPath = useMemo(() => {
+    const p = Skia.Path.Make();
+    const tipRadius = strokeWidth / 2;
+    p.addCircle(center + radius, center, tipRadius);
+    return p;
+  }, [center, radius, strokeWidth]);
+
+  const backTipShadowClip = useMemo(() => {
+    // create rectangle path for front half of tip
+    const p = Skia.Path.Make();
+    p.addRect(
+      Skia.XYWHRect(
+        center + radius - strokeWidth / 2,
+        center - strokeWidth,
         strokeWidth,
         strokeWidth * 1.05,
       ),
@@ -184,6 +212,25 @@ function ProgressCircle({
           origin={{ x: center, y: center }}
           transform={[{ rotate: -Math.PI / 2 }]}
         >
+          {/* Progress back tip */}
+          <Group
+            blendMode="overlay"
+            clip={backTipShadowClip}
+            opacity={progressOpacity}
+            origin={{ x: center, y: center }}
+          >
+            <Shadow
+              blur={scale(3)}
+              color={hexToRGBA(darken(color, 0.45), 0.5)}
+              dx={0}
+              dy={0}
+              inner={false}
+              shadowOnly={true}
+            />
+            <Path path={backTipPath} style="fill">
+              <Paint color="#FFF" />
+            </Path>
+          </Group>
           {/* Track circle */}
           <Path
             color={trackColor}
@@ -195,15 +242,13 @@ function ProgressCircle({
             strokeWidth={strokeWidth}
             style="stroke"
           />
-
-          {/* Optional: Add a center circle for better aesthetics */}
+          {/*  Center Circle */}
           <Path
             color={animatedColor}
             opacity={trackOpacity}
             path={Skia.Path.Make().addCircle(center, center, radius / 1.3)}
             style="fill"
           />
-
           {/* Progress circle */}
           <Group opacity={progressOpacity}>
             <Path
@@ -218,36 +263,30 @@ function ProgressCircle({
               <SweepGradient
                 c={vec(center, center)}
                 colors={colors}
-                end={360}
                 origin={{ x: center, y: center }}
-                start={0}
-                // transform={tipTransform}
+                transform={tipTransform}
               />
-              {/*<LinearGradient*/}
-              {/*  colors={colors}*/}
-              {/*  end={vec(300, 300)}*/}
-              {/*  start={vec(0, 0)}*/}
-              {/*/>*/}
             </Path>
           </Group>
           {/*Tip Shadow*/}
           <Group
+            blendMode="overlay"
             clip={tipShadowClip}
             opacity={progressOpacity}
             origin={{ x: center, y: center }}
             transform={tipTransform}
           >
+            <Path path={tipPath} style="fill">
+              <Paint color={"#FFF"} />
+            </Path>
             <Shadow
               blur={scale(3)}
-              color={hexToRGBA(darken(color, 0.65), 0.5)}
+              color={hexToRGBA(darken(color, 0.25), 0.5)}
               dx={0}
               dy={0}
               inner={false}
-              shadowOnly={true}
+              shadowOnly={false}
             />
-            <Path path={tipPath} style="fill">
-              <Paint color="#FFF" />
-            </Path>
           </Group>
         </Group>
       </Canvas>

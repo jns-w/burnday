@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useInterval } from "usehooks-ts";
 
+import TimerOptionsBottomSheet from "@/components/bottom-sheets/timer/TimerOptionsBottomSheet";
 import ProgressCircle from "@/components/ui/progress/ProgressCircle";
 import { useTheme } from "@/context/ThemeContext";
 import {
@@ -10,8 +11,9 @@ import {
   targetDurationAtom,
   timerStateAtom,
 } from "@/states/TimerState";
-import { Theme } from "@/styles/Constants";
+import { COLORS, Theme, TYPOGRAPHY } from "@/styles/Constants";
 import { scale } from "@/utils/Display";
+import { formatDuration } from "@/utils/Time";
 
 // noinspection JSUnusedGlobalSymbols
 export default function TimerScreen() {
@@ -82,33 +84,43 @@ export default function TimerScreen() {
   );
 
   return (
-    <View style={styles.container}>
-      <ProgressCircle
-        color={timerState.isOn ? theme.focus : theme.inactive}
-        colors={timerState.isOn ? theme.gradient.focus : theme.gradient.pause}
-        percentage={(duration / target) * 100}
-        size={scale(250)}
-        strokeWidth={scale(30)}
-        trackColor={"#e0e0e0"}
-        trackOpacity={timerState.isOn ? 0.5 : 0.3}
-      />
-      {/*<Text>{duration}</Text>*/}
-      <Pressable
-        onPress={() => toggleTimer()}
-        style={{
-          marginVertical: 20,
-        }}
-      >
-        <Text>Toggle On/Off</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => resetTimer()}
-        style={{
-          marginVertical: 20,
-        }}
-      >
-        <Text>Reset</Text>
-      </Pressable>
+    <View style={styles.screenWrapper}>
+      <View style={styles.container}>
+        <View style={styles.progressWrapper}>
+          <ProgressCircle
+            color={timerState.isOn ? theme.focus : theme.inactive}
+            colors={
+              timerState.isOn ? theme.gradient.focus : theme.gradient.pause
+            }
+            percentage={(duration / target) * 100}
+            size={scale(250)}
+            strokeWidth={scale(30)}
+            trackColor={"#e0e0e0"}
+            trackOpacity={timerState.isOn ? 0.5 : 0.3}
+          />
+          <View style={styles.timerTextContainer}>
+            <Text style={styles.timerText}>{formatDuration(duration)}</Text>
+          </View>
+        </View>
+        <Pressable
+          onPress={() => toggleTimer()}
+          style={{
+            marginVertical: 20,
+          }}
+        >
+          <Text style={styles.text}>Toggle On/Off</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => resetTimer()}
+          style={{
+            marginVertical: 20,
+          }}
+        >
+          <Text style={styles.text}>Reset</Text>
+        </Pressable>
+
+        <TimerOptionsBottomSheet />
+      </View>
     </View>
   );
 }
@@ -121,9 +133,27 @@ function createThemedStyles(theme: Theme) {
       flex: 1,
       justifyContent: "center",
     },
+    progressWrapper: {
+      position: "relative",
+    },
+    screenWrapper: {
+      ...StyleSheet.absoluteFillObject,
+    },
     text: {
       color: theme.text,
       marginBottom: scale(50),
+    },
+    timerText: {
+      ...TYPOGRAPHY.mono,
+      color: "#FFF",
+      fontSize: scale(15),
+    },
+    timerTextContainer: {
+      alignItems: "center",
+      height: "100%",
+      justifyContent: "center",
+      position: "absolute",
+      width: scale(250),
     },
   });
 }

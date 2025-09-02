@@ -1,3 +1,4 @@
+import { GeistMono_400Regular } from "@expo-google-fonts/geist-mono";
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -15,6 +16,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 // noinspection JSUnusedGlobalSymbols
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
+    "Geist-Mono-Regular": GeistMono_400Regular,
     "Inter-Bold": Inter_700Bold,
     "Inter-Medium": Inter_500Medium,
     "Inter-Regular": Inter_400Regular,

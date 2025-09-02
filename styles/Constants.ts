@@ -50,14 +50,14 @@ export const THEME = {
   },
   light: {
     bg1: "#eeeeee",
-    bg2: "#dcdcdc",
+    bg2: "#f8f8f8",
     border: "#e1e1e1",
     focus: "#ee5822",
     gradient: {
       1: ["#FFB8E0", "#BE9EFF", "#88C0FC", "#86FF99"],
       9: ["#353843", "#181A20"],
       bg: ["#EF88ED", "#7269E3", "#8350DB", "#181A20"],
-      focus: ["#eabb83", "#ee5822", "#eabb83"],
+      focus: ["#eabb83", "#ee5822"],
       pause: ["#a4a9b6", "#7a7f91", "#a4a9b6"],
       rest: ["#7fb21e", "#27b027", "#7fb21e"],
       restOvertime: ["#a20f2b", "#c22e1c", "#a20f2b"],
@@ -199,6 +199,9 @@ export const TYPOGRAPHY = {
     fontSize: scale(20),
     letterSpacing: 0,
     lineHeight: scale(24),
+  },
+  mono: {
+    fontFamily: "Geist-Mono-Regular",
   },
   title: {
     fontFamily: "Poppins-SemiBold",

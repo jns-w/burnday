@@ -27,7 +27,7 @@ export const durationAtom = atomWithStorage<number>(
   storage,
 );
 
-const targetDurationDefault = 30; // Default to 25 minutes in seconds
+const targetDurationDefault = 15 * 60; // Default to 25 minutes in seconds
 
 export const targetDurationAtom = atomWithStorage<number>(
   "timer-target-duration",
